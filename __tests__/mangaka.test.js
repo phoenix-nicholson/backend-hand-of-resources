@@ -3,6 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const { createMangaka } = require('../lib/models/Mangaka');
+const Mangaka = require('../lib/models/Mangaka');
 
 describe('backend-hand-of-resources routes', () => {
   beforeEach(() => {
@@ -24,15 +25,20 @@ describe('backend-hand-of-resources routes', () => {
       series: 'One Piece',
     });
   });
+
   it('should be able to list all mangaka', async () => {
-    await createMangaka({ name: 'Eichiiro Oda', series: 'One Piece' });
-
-    const res = await request(app).get('/api/v1/mangaka');
-
-    expect(res.body).toEqual({
-      id: expect.any(String),
+    const mangaka1 = await Mangaka.createMangaka({
       name: 'Eiichiro Oda',
       series: 'One Piece',
     });
+
+    const mangaka2 = await Mangaka.createMangaka({
+      name: 'Kentari Mirua',
+      series: 'Berserk',
+    });
+
+    const res = await request(app).get('/api/v1/mangaka');
+
+    expect(res.body).toEqual([mangaka1, mangaka2]);
   });
 });
