@@ -5,5 +5,5 @@ DROP TABLE IF EXISTS mangaka;
 CREATE TABLE mangaka (
     id BIGINT GENERATED ALWAYS AS IDENTITY,
     name TEXT NOT NULL,
-    series TEXT NOT NULL,
+    series TEXT NOT NULL
 )
