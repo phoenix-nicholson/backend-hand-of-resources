@@ -41,4 +41,14 @@ describe('backend-hand-of-resources routes', () => {
 
     expect(res.body).toEqual([mangaka1, mangaka2]);
   });
+
+  it('should be able to get mangaka by id', async () => {
+    const mangaka = await createMangaka({
+      id: expect.any(String),
+      name: 'Eiichiro Oda',
+      series: 'One Piece',
+    });
+    const res = await request(app).get(`/api/v1/mangaka/${mangaka.id}`);
+    expect(res.body).toEqual(mangaka);
+  });
 });
