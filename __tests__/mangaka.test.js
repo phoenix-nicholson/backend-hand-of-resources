@@ -51,4 +51,16 @@ describe('backend-hand-of-resources routes', () => {
     const res = await request(app).get(`/api/v1/mangaka/${mangaka.id}`);
     expect(res.body).toEqual(mangaka);
   });
+
+  it('should be able to update mangaka', async () => {
+    const mangaka = await Mangaka.createMangaka({
+      name: 'Eiichiro Oda',
+      series: 'One Piece',
+    });
+    const res = await (
+      await request(app).patch('/api/v1/mangaka/1')
+    ).send({ name: 'Kentari Mirua', series: 'Berserk' });
+
+    expect(res.body).toEqual(mangaka);
+  });
 });
