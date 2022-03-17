@@ -2,7 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
-const { createMangaka } = require('../lib/models/Mangaka');
+const { createMangaka, getMangakaById } = require('../lib/models/Mangaka');
 const Mangaka = require('../lib/models/Mangaka');
 
 describe('backend-hand-of-resources routes', () => {
@@ -57,10 +57,16 @@ describe('backend-hand-of-resources routes', () => {
       name: 'Eiichiro Oda',
       series: 'One Piece',
     });
-    const res = await (
-      await request(app).patch('/api/v1/mangaka/1')
-    ).send({ name: 'Kentari Mirua', series: 'Berserk' });
+    const expected = {
+      id: expect.any(String),
+      name: 'Kentari Mirua',
+      series: 'Berserk',
+    };
+    const res = await request(app)
+      .patch('/api/v1/mangaka/1')
+      .send({ name: 'Kentari Mirua', series: 'Berserk' });
 
-    expect(res.body).toEqual(mangaka);
+    expect(res.body).toEqual(expected);
+    expect(await getMangakaById(mangaka.id)).toEqual(expected);
   });
 });
