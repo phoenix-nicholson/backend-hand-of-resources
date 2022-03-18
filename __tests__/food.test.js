@@ -35,6 +35,6 @@ describe('backend-hand-of-resources routes', () => {
     });
 
     const res = await request(app).get('/api/v1/food');
-    expect(res.body).toEqual([[food1, food2]]);
+    expect(res.body).toEqual([food1, food2]);
   });
 });
