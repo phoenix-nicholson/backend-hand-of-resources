@@ -69,4 +69,12 @@ describe('backend-hand-of-resources routes', () => {
     expect(res.body).toEqual(expected);
     expect(await getMangakaById(mangaka.id)).toEqual(expected);
   });
+  it('should be able to delete', async () => {
+    const mangaka = await Mangaka.createMangaka({
+      name: 'Eiichiro Oda',
+      series: 'One Piece',
+    });
+    const res = await request(app).delete(`/api/v1/mangaka/${mangaka.id}`);
+    expect(res.body).toEqual(mangaka);
+  });
 });
