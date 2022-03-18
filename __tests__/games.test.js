@@ -77,5 +77,6 @@ describe('backend-hand-of-resources routes', () => {
     });
     const res = await request(app).delete(`/api/v1/games/${game.id}`);
     expect(res.body).toEqual(game);
+    expect(await getGamesById(game.id)).toBeNull();
   });
 });
