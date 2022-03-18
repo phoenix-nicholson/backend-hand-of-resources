@@ -2,6 +2,7 @@ const setup = require('../data/setup');
 const app = require('../lib/app');
 const request = require('supertest');
 const pool = require('../lib/utils/pool');
+const Food = require('../lib/models/Food');
 
 describe('backend-hand-of-resources routes', () => {
   beforeEach(() => {
@@ -21,5 +22,19 @@ describe('backend-hand-of-resources routes', () => {
       item: 'Sushi',
       origin: 'Japan',
     });
+  });
+
+  it('should be able to list all the food', async () => {
+    const food1 = await Food.createFood({
+      item: 'Sushi',
+      origin: 'Japan',
+    });
+    const food2 = await Food.createFood({
+      item: 'Burger',
+      origin: 'America',
+    });
+
+    const res = await request(app).get('/api/v1/food');
+    expect(res.body).toEqual([[food1, food2]]);
   });
 });
