@@ -12,9 +12,9 @@ describe('backend-hand-of-resources routes', () => {
     pool.end();
   });
 
-  it('should be able to create a game', async () => {
+  it.only('should be able to create a game', async () => {
     const res = await request(app)
-      .post('api/v1/games')
+      .post('/api/v1/games')
       .send({ title: 'Elden Ring', genre: 'Open World' });
     expect(res.body).toEqual({
       id: expect.any(String),
