@@ -72,4 +72,14 @@ describe('backend-hand-of-resources routes', () => {
     expect(res.body).toEqual(expected);
     expect(await getDogId(dog.id)).toEqual(expected);
   });
+
+  it('Should be able to delete a dog', async () => {
+    const dog = await Dog.createMiklo({
+      name: 'Miklo',
+      favtoy: 'Soccer Ball',
+    });
+
+    const res = await request(app).delete(`/api/v1/dog/${dog.id}`);
+    expect(res.body).toEqual(dog);
+  });
 });
