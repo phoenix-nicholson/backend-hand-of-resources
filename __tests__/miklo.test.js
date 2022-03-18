@@ -12,7 +12,7 @@ describe('backend-hand-of-resources routes', () => {
     pool.end();
   });
 
-  it.only('should be able to create a dog', async () => {
+  it('should be able to create a dog', async () => {
     const res = await request(app)
       .post('/api/v1/miklo')
       .send({ name: 'Miklo', favtoy: 'Soccer Ball' });
