@@ -45,7 +45,7 @@ describe('backend-hand-of-resources routes', () => {
       title: 'Elden Ring',
       genre: 'Open World',
     });
-    const res = await request(app).get(`/api/v1/${game.id}`);
+    const res = await request(app).get(`/api/v1/games/${game.id}`);
     expect(res.body).toEqual(game);
   });
 });
