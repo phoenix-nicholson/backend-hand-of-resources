@@ -68,4 +68,11 @@ describe('backend-hand-of-resources routes', () => {
     expect(res.body).toEqual(expected);
     expect(await getFoodId(food.id)).toEqual(expected);
   });
+
+  it('Should delete food', async () => {
+    const food = await Food.createFood({ item: 'Sushi', origin: 'Japan' });
+
+    const res = await request(app).delete(`/api/v1/food/${food.id}`);
+    expect(res.body).toEqual(food);
+  });
 });
