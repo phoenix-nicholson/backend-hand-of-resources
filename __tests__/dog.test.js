@@ -3,7 +3,7 @@ const app = require('../lib/app');
 const request = require('supertest');
 const pool = require('../lib/utils/pool');
 const { createMiklo } = require('../lib/models/Dog');
-const Miklo = require('../lib/models/Dog');
+const Dog = require('../lib/models/Dog');
 
 describe('backend-hand-of-resources routes', () => {
   beforeEach(() => {
@@ -27,10 +27,17 @@ describe('backend-hand-of-resources routes', () => {
   });
 
   it('Should be able to list all dogs', async () => {
-    // const miklo1 = await Miklo.createMiklo({
-    //   name: 'Miklo',
-    //   favtoy: 'Soccer Ball'
-    // });
-    // const miklo2 =
+    const dog1 = await Dog.createMiklo({
+      name: 'Miklo',
+      favtoy: 'Soccer Ball',
+    });
+
+    const dog2 = await Dog.createMiklo({
+      name: 'Luna',
+      favtoy: 'Anything',
+    });
+
+    const res = await request(app).get('/api/v1/dog');
+    expect(res.body).toEqual([dog1, dog2]);
   });
 });
