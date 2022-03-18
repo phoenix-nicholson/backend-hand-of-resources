@@ -13,7 +13,7 @@ describe('backend-hand-of-resources routes', () => {
     pool.end();
   });
 
-  it.only('should be able to create a game', async () => {
+  it('should be able to create a game', async () => {
     const res = await request(app)
       .post('/api/v1/games')
       .send({ title: 'Elden Ring', genre: 'Open World' });
@@ -25,16 +25,16 @@ describe('backend-hand-of-resources routes', () => {
     });
   });
 
-  it('should be able to list all games', async () => {
+  it.only('should be able to list all games', async () => {
     const game1 = await Game.createGame({
-      name: 'Elden Ring',
+      title: 'Elden Ring',
       genre: 'Open World',
     });
     const game2 = await Game.createGame({
-      name: 'Spider-Man',
+      title: 'Spider-Man',
       genre: 'Action',
     });
-    const res = await request(app).get('api/v1/games');
+    const res = await request(app).get('/api/v1/games');
     expect(res.body).toEqual([game1, game2]);
   });
 });
