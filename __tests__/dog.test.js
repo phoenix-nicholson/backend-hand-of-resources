@@ -2,7 +2,7 @@ const setup = require('../data/setup');
 const app = require('../lib/app');
 const request = require('supertest');
 const pool = require('../lib/utils/pool');
-const { createMiklo } = require('../lib/models/Dog');
+const { createMiklo, getDogId } = require('../lib/models/Dog');
 const Dog = require('../lib/models/Dog');
 
 describe('backend-hand-of-resources routes', () => {
@@ -43,7 +43,7 @@ describe('backend-hand-of-resources routes', () => {
     expect(res.body).toEqual([dog1, dog2]);
   });
 
-  it.only('Should be able to get a dogs id', async () => {
+  it('Should be able to get a dogs id', async () => {
     const dog = await createMiklo({
       id: expect.any(String),
       name: 'Miklo',
@@ -52,5 +52,24 @@ describe('backend-hand-of-resources routes', () => {
 
     const res = await request(app).get(`/api/v1/dog/${dog.id}`);
     expect(res.body).toEqual(dog);
+  });
+
+  it('Should be able to update a dog', async () => {
+    const dog = await createMiklo({
+      id: expect.any(String),
+      name: 'Miklo',
+      favtoy: 'Soccer Ball',
+    });
+    const expected = {
+      id: expect.any(String),
+      name: 'Luna',
+      favtoy: 'Anything',
+    };
+    const res = await request(app)
+      .patch(`/api/v1/dog/${dog.id}`)
+      .send({ name: 'Luna', favtoy: 'Anything' });
+
+    expect(res.body).toEqual(expected);
+    expect(await getDogId(dog.id)).toEqual(expected);
   });
 });
