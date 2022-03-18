@@ -17,6 +17,7 @@ describe('backend-hand-of-resources routes', () => {
     const res = await request(app)
       .post('/api/v1/games')
       .send({ title: 'Elden Ring', genre: 'Open World' });
+
     expect(res.body).toEqual({
       id: expect.any(String),
       title: 'Elden Ring',
