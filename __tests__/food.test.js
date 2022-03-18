@@ -57,12 +57,12 @@ describe('backend-hand-of-resources routes', () => {
     const expected = {
       id: expect.any(String),
       item: 'Fried Rice',
-      Origin: 'Thailand',
+      origin: 'Thailand',
     };
 
     const res = await request(app).patch('/api/v1/food/1').send({
       item: 'Fried Rice',
-      Origin: 'Thailand',
+      origin: 'Thailand',
     });
 
     expect(res.body).toEqual(expected);
