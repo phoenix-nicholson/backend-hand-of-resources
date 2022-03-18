@@ -33,9 +33,10 @@ CREATE TABLE food (
     origin TEXT NOT NULL
 );
 
-DROP TABLE IF EXISTS bikes; 
+DROP TABLE IF EXISTS bike; 
 
-CREATE TABLE bikes (
+CREATE TABLE bike (
+    
     id BIGINT GENERATED ALWAYS AS IDENTITY,
     brand TEXT NOT NULL,
     type TEXT NOT NULL
