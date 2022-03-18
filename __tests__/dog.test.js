@@ -55,7 +55,7 @@ describe('backend-hand-of-resources routes', () => {
   });
 
   it('Should be able to update a dog', async () => {
-    const dog = await createMiklo({
+    const dog = await Dog.createMiklo({
       id: expect.any(String),
       name: 'Miklo',
       favtoy: 'Soccer Ball',
