@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const Game = require('../lib/models/Games');
 
 describe('backend-hand-of-resources routes', () => {
   beforeEach(() => {
@@ -21,5 +22,18 @@ describe('backend-hand-of-resources routes', () => {
       title: 'Elden Ring',
       genre: 'Open World',
     });
+  });
+
+  it('should be able to list all games', async () => {
+    const game1 = await Game.createGame({
+      name: 'Elden Ring',
+      genre: 'Open World',
+    });
+    const game2 = await Game.createGame({
+      name: 'Spider-Man',
+      genre: 'Action',
+    });
+    const res = await request(app).get('api/v1/games');
+    expect(res.body).toEqual([game1, game2]);
   });
 });
