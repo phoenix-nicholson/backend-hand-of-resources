@@ -1,4 +1,5 @@
 const { request } = require('../lib/app');
+const pool = require('../lib/utils/pool');
 
 describe('backend-hand-of-resources routes', () => {
   beforeEach(() => {
@@ -9,7 +10,7 @@ describe('backend-hand-of-resources routes', () => {
     pool.end();
   });
 
-  it('should be able to create some food', async () => {
+  it.only('should be able to create some food', async () => {
     const res = await request(app)
       .post('/api/v1/food')
       .send({ item: 'Sushi', origin: 'Japan' });
