@@ -3,7 +3,7 @@ const app = require('../lib/app');
 const request = require('supertest');
 const pool = require('../lib/utils/pool');
 const Food = require('../lib/models/Food');
-const { createFood } = require('../lib/models/Food');
+const { createFood, getFoodId } = require('../lib/models/Food');
 
 describe('backend-hand-of-resources routes', () => {
   beforeEach(() => {
@@ -47,5 +47,25 @@ describe('backend-hand-of-resources routes', () => {
     });
     const res = await request(app).get(`/api/v1/food/${food.id}`);
     expect(res.body).toEqual(food);
+  });
+
+  it('Should update food ', async () => {
+    const food = await Food.createFood({
+      item: 'Sushi',
+      origin: 'Japan',
+    });
+    const expected = {
+      id: expect.any(String),
+      item: 'Fried Rice',
+      Origin: 'Thailand',
+    };
+
+    const res = await request(app).patch('/api/v1/food/1').send({
+      item: 'Fried Rice',
+      Origin: 'Thailand',
+    });
+
+    expect(res.body).toEqual(expected);
+    expect(await getFoodId(food.id)).toEqual(expected);
   });
 });
