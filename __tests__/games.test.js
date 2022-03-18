@@ -69,4 +69,13 @@ describe('backend-hand-of-resources routes', () => {
     expect(res.body).toEqual(expected);
     expect(await getGamesById(game.id)).toEqual(expected);
   });
+
+  it('Should be able to delete', async () => {
+    const game = await Game.createGame({
+      title: 'Elden Ring',
+      genre: 'Open World',
+    });
+    const res = await request(app).delete(`api/v1/games/${game.id}`);
+    expect(res.body).toEqual(game);
+  });
 });
