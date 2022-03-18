@@ -7,3 +7,11 @@ CREATE TABLE mangaka (
     name TEXT NOT NULL,
     series TEXT NOT NULL
 )
+
+DROP TABLE IF EXISTS miklo;
+
+CREATE TABLE miklo (
+    id BIGINT GENERATED ALWAYS AS IDENTITY,
+    name TEXT NOT NULL,
+    favToy TEXT NOT NULL
+)
