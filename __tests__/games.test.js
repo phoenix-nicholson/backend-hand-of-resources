@@ -70,7 +70,7 @@ describe('backend-hand-of-resources routes', () => {
     expect(await getGamesById(game.id)).toEqual(expected);
   });
 
-  it.only('Should be able to delete', async () => {
+  it('Should be able to delete', async () => {
     const game = await Game.createGame({
       title: 'Elden Ring',
       genre: 'Open World',
