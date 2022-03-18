@@ -1,4 +1,7 @@
-const { request } = require('../lib/app');
+const setup = require('../data/setup');
+const app = require('../lib/app');
+const request = require('supertest');
+const pool = require('../lib/utils/pool');
 
 describe('backend-hand-of-resources routes', () => {
   beforeEach(() => {
@@ -9,15 +12,15 @@ describe('backend-hand-of-resources routes', () => {
     pool.end();
   });
 
-  it('should be able to create a dog', async () => {
+  it.only('should be able to create a dog', async () => {
     const res = await request(app)
       .post('/api/v1/miklo')
-      .send({ name: 'Miklo', favToy: 'Soccer Ball' });
+      .send({ name: 'Miklo', favtoy: 'Soccer Ball' });
 
     expect(res.body).toEqual({
       id: expect.any(String),
       name: 'Miklo',
-      favToy: 'Soccer Ball',
+      favtoy: 'Soccer Ball',
     });
   });
 });
