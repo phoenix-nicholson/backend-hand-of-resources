@@ -26,13 +26,15 @@ describe('backend-hand-of-resources routes', () => {
     });
   });
 
-  it('Should be able to list all dogs', async () => {
+  it.only('Should be able to list all dogs', async () => {
     const dog1 = await Dog.createMiklo({
+      id: expect.any(String),
       name: 'Miklo',
       favtoy: 'Soccer Ball',
     });
 
     const dog2 = await Dog.createMiklo({
+      id: expect.any(String),
       name: 'Luna',
       favtoy: 'Anything',
     });
