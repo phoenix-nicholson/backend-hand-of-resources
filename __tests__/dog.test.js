@@ -26,7 +26,7 @@ describe('backend-hand-of-resources routes', () => {
     });
   });
 
-  it.only('Should be able to list all dogs', async () => {
+  it('Should be able to list all dogs', async () => {
     const dog1 = await Dog.createMiklo({
       id: expect.any(String),
       name: 'Miklo',
@@ -41,5 +41,16 @@ describe('backend-hand-of-resources routes', () => {
 
     const res = await request(app).get('/api/v1/dog');
     expect(res.body).toEqual([dog1, dog2]);
+  });
+
+  it.only('Should be able to get a dogs id', async () => {
+    const dog = await createMiklo({
+      id: expect.any(String),
+      name: 'Miklo',
+      favtoy: 'Soccer Ball',
+    });
+
+    const res = await request(app).get(`/api/v1/dog/${dog.id}`);
+    expect(res.body).toEqual(dog);
   });
 });
