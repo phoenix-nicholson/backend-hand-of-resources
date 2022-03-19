@@ -25,9 +25,9 @@ describe('backend-hand-of-resources routes', () => {
     });
   });
 
-  it('Should be able to list all bike', async () => {
+  it('Should be able to list all bikes', async () => {
     const bike1 = await Bike.createBike({ brand: 'Honda', type: 'Grom' });
-    const bike2 = { brand: 'Harley', type: 'Iron 833' };
+    const bike2 = await Bike.createBike({ brand: 'Harley', type: 'Iron 833' });
 
     const res = await request(app).get('/api/v1/bike');
 
