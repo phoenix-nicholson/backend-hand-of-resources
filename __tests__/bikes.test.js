@@ -3,6 +3,7 @@ const request = require('supertest');
 const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const Bike = require('../lib/models/Bikes');
+const { createBike } = require('../lib/models/Bikes');
 
 describe('backend-hand-of-resources routes', () => {
   beforeEach(() => {
@@ -32,5 +33,15 @@ describe('backend-hand-of-resources routes', () => {
     const res = await request(app).get('/api/v1/bike');
 
     expect(res.body).toEqual([bike1, bike2]);
+  });
+
+  it('Should be able to  get by id', async () => {
+    const bike = await createBike({
+      id: expect.any(String),
+      brand: 'Honda',
+      type: 'Grom',
+    });
+    const res = await request(app).get(`api/v1/bike/${bike.id}`);
+    expect(res.body).toEqual(bike);
   });
 });
