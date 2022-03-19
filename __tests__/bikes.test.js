@@ -62,4 +62,10 @@ describe('backend-hand-of-resources routes', () => {
     expect(res.body).toEqual(expected);
     expect(await getBikeId(bike.id)).toEqual(expected);
   });
+
+  it('Should be able to delete a bike', async () => {
+    const bike = await Bike.createBike({ brand: 'Honda', type: 'Grom' });
+    const res = await request(app).delete(`/api/v1/bike/${bike.id}`);
+    expect(res.body).toEqual(bike);
+  });
 });
