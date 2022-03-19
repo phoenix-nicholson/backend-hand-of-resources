@@ -41,7 +41,7 @@ describe('backend-hand-of-resources routes', () => {
       brand: 'Honda',
       type: 'Grom',
     });
-    const res = await request(app).get(`api/v1/bike/${bike.id}`);
+    const res = await request(app).get(`/api/v1/bike/${bike.id}`);
     expect(res.body).toEqual(bike);
   });
 });
