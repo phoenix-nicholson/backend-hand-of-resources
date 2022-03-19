@@ -55,7 +55,7 @@ describe('backend-hand-of-resources routes', () => {
       brand: 'Harley',
       type: 'Iron 833',
     };
-
+    const res = await request(app).patch('/api/v1/bike/1');
     expect(res.body).toEqual(expected);
     expect(await getBikeId(bike.id)).toEqual(expected);
   });
